@@ -1,0 +1,7 @@
+<nav class="menu-bar">
+    {% for menu in menu_bar %}
+    {% if menu.authentication_required and user.is_authenticated or not menu.authentication_required %}
+    <a href="{{ menu.href }}">{{ menu.http_inner }}</a>
+    {% endif %}
+    {% endfor %}
+</nav>

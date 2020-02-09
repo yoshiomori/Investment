@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block link %}
+{% endblock %}
+{% block body %}
+<a href="{% url 'asset:create' %}">create</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for asset in asset_list %}
+    <tr>
+        <td>{{ asset.name }}</td>
+        <td>
+            <a href="{% url 'value:list' asset.pk %}">values</a>
+            <a href="{% url 'asset:update' asset.pk %}">update</a>
+            <a href="{% url 'asset:delete' asset.pk %}">remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include 'pagination.html' %}
+{% endblock %}

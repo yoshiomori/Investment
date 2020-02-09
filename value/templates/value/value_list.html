@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block link %}
+{% endblock %}
+
+{% block body %}
+{% if value_list %}
+<div class="container">
+    <div class="row">
+        <div id="chart_div" class="col-12"></div>
+    </div>
+</div>
+{% endif %}
+
+<a href="{% url 'value:create' %}">create</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for value in value_list %}
+    <tr>
+        <td>{{ value.date }}</td>
+        <td>{{ value.price }}</td>
+        <td><a href="{% url 'value:update' value.pk %}">update</a> <a href="{% url 'value:delete' value.pk %}">delete</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include 'pagination.html' %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Date', 'Price'],
+            {% for value in value_list %}
+            [new Date({{ value.date.year }}, {{ value.date.month }}, {{ value.date.day }}), {{ value.price }}],
+            {% endfor %}
+        ]);
+
+        var options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: {
+                format: 'd/M/yy'
+            },
+            displayAnnotations: true
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block link %}
+{% endblock %}
+{% block body %}
+<form method="post">
+    {% csrf_token %}
+    Are you sure that you want delete the asset {{ asset.name }}?
+    <button type="submit">Yes</button>
+    <button onclick="window.history.back()">No</button>
+</form>
+{% endblock %}
