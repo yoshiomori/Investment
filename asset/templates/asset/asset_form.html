@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block link %}
 {% endblock %}
-{% block body %}
-<form method="post">
+{% block main %}
+<form id="asset-form" method="post">
     {% csrf_token %}
     <table>
         <tbody>
         {{ form }}
         </tbody>
     </table>
-    <button type="submit">{% if asset %}Update{% else %}Create{% endif %}</button>
 </form>
+<button form="asset-form" type="submit">{% if asset %}Update{% else %}Create{% endif %}</button>
 {% endblock %}

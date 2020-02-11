@@ -136,6 +136,7 @@ DATE_INPUT_FORMATS = [
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "accounts", "static"),
 ]
 
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')

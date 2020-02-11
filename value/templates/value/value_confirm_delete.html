@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block link %}
 {% endblock %}
-{% block body %}
-<form method="post">
+{% block main %}
+<form id="value-confirm-delete" method="post">
     {% csrf_token %}
     Are you sure that you want delete the value {{ value.value }}?
-    <button>Yes</button>
-    <button onclick="window.history.back()">No</button>
 </form>
+<button form="value-confirm-delete" type="submit">Yes</button>
+<button onclick="window.history.back()">No</button>
 {% endblock %}
