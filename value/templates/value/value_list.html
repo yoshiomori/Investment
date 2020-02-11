@@ -5,11 +5,7 @@
 
 {% block body %}
 {% if value_list %}
-<div class="container">
-    <div class="row">
-        <div id="chart_div" class="col-12"></div>
-    </div>
-</div>
+<div id="chart_div"></div>
 {% endif %}
 
 <a href="{% url 'value:create' %}">create</a>
@@ -49,7 +45,7 @@
         ]);
 
         var options = {
-            title: 'Company Performance',
+            title: '{{ asset }}',
             curveType: 'function',
             legend: { position: 'bottom' },
             hAxis: {

@@ -3,7 +3,7 @@ from accounts import models
 
 
 class MenuBarModelAdmin(admin.ModelAdmin):
-    list_display = ('http_inner', 'view_name')
+    list_display = ('http_inner', 'view_name', 'order', 'group')
     list_filter = ('view_name', 'http_inner')
 
 

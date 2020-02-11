@@ -7,6 +7,8 @@ from value import models
 from value import forms
 from django import urls
 
+from asset import models as asset_models
+
 
 class ValueCreateView(auth_mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Value
@@ -36,6 +38,10 @@ class ValueListView(
     model = models.Value
     paginate_by = 100
     ordering = 'pk'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        asset = asset_models.Asset.objects.values_list('name', flat=True).filter(pk=self.kwargs.get('asset')).first()
+        return super().get_context_data(object_list=object_list, asset=asset, **kwargs)
 
 
 class ValueUpdateView(auth_mixins.LoginRequiredMixin, generic.UpdateView):

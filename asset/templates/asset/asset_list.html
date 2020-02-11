@@ -2,12 +2,11 @@
 {% block link %}
 {% endblock %}
 {% block body %}
-<a href="{% url 'asset:create' %}">create</a>
 <table class="table">
     <thead>
     <tr>
         <th>Nome</th>
-        <th></th>
+        <th><a href="{% url 'asset:create' %}">create</a></th>
     </tr>
     </thead>
     <tbody>
