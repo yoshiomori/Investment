@@ -8,7 +8,7 @@ from django.contrib.auth import mixins as auth_mixins
 from django import urls
 
 
-class AssetListView(auth_mixins.LoginRequiredMixin, mixins.PreviousUrlMixin, generic.ListView):
+class AssetListView(auth_mixins.LoginRequiredMixin, mixins.SetSessionPreviousUrlMixin, generic.ListView):
     model = models.Asset
     paginate_by = 100
     ordering = 'pk'

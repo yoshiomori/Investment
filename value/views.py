@@ -1,7 +1,6 @@
 from django.contrib.auth import mixins as auth_mixins
 from django.views import generic
 
-import constants
 import mixins
 from value import models
 from value import forms
@@ -30,7 +29,7 @@ class ValueCreateView(auth_mixins.LoginRequiredMixin, generic.CreateView):
 
 class ValueListView(
     auth_mixins.LoginRequiredMixin,
-    mixins.PreviousUrlMixin,
+    mixins.SetSessionPreviousUrlMixin,
     mixins.KwargsFilterQuerySetMixin,
     mixins.KwargsUpdateSessionMixin,
     generic.ListView
@@ -44,14 +43,10 @@ class ValueListView(
         return super().get_context_data(object_list=object_list, asset=asset, **kwargs)
 
 
-class ValueUpdateView(auth_mixins.LoginRequiredMixin, generic.UpdateView):
+class ValueUpdateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.UpdateView):
     model = models.Value
     fields = ['date', 'price']
 
 
-class ValueDeleteView(auth_mixins.LoginRequiredMixin, generic.DeleteView):
+class ValueDeleteView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.DeleteView):
     model = models.Value
-
-    def get_success_url(self):
-        self.success_url = self.request.session[constants.PREVIOUS_URL]
-        return super().get_success_url()

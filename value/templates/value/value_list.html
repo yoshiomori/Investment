@@ -31,6 +31,7 @@
 {% endblock %}
 
 {% block script %}
+{% if value_list %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -59,4 +60,5 @@
         chart.draw(data, options);
     }
 </script>
+{% endif %}
 {% endblock %}

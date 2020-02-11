@@ -2,7 +2,7 @@ import constants
 from django import shortcuts
 
 
-class PreviousUrlMixin(object):
+class SetSessionPreviousUrlMixin(object):
     def dispatch(self, request, *args, **kwargs):
         request.session[constants.PREVIOUS_URL] = request.build_absolute_uri()
         return super().dispatch(request, *args, **kwargs)
@@ -17,3 +17,9 @@ class KwargsUpdateSessionMixin(object):
     def dispatch(self, request, *args, **kwargs):
         request.session.update(kwargs)
         return super().dispatch(request, *args, **kwargs)
+
+
+class SuccessUrlPreviousUrlMixin(object):
+    def get_success_url(self):
+        self.success_url = self.request.session[constants.PREVIOUS_URL]
+        return super().get_success_url()
