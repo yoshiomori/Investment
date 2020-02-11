@@ -1,11 +1,10 @@
+from django import http
+from django import urls
+from django.contrib.auth import mixins as auth_mixins
 from django.views import generic
 
-import constants
 import mixins
 from asset import models
-from django import http
-from django.contrib.auth import mixins as auth_mixins
-from django import urls
 
 
 class AssetListView(auth_mixins.LoginRequiredMixin, mixins.SetSessionPreviousUrlMixin, generic.ListView):
@@ -37,9 +36,5 @@ class AssetUpdateView(auth_mixins.LoginRequiredMixin, generic.UpdateView):
         return super().get_success_url()
 
 
-class AssetDeleteView(auth_mixins.LoginRequiredMixin, generic.DeleteView):
+class AssetDeleteView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.DeleteView):
     model = models.Asset
-
-    def get_success_url(self):
-        self.success_url = self.request.session[constants.PREVIOUS_URL]
-        return super().get_success_url()
