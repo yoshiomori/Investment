@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block main %}
+<form id="form">
+    <table>
+        <tbody>{{ filter_form }}{{ ordering_form }}</tbody>
+    </table>
+</form>
+<button form="form" type="submit">Search</button>
+
 {% if value_list %}
 <div id="chart_div"></div>
 {% endif %}
@@ -14,7 +21,7 @@
     <tr>
         <th>Date</th>
         <th>Price</th>
-        <th><a href="{% url 'value:create' %}">create</a></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -68,5 +75,6 @@
         chart.draw(table, options);
     }
 </script>
+{{ filter_form.media }}
 {% endif %}
 {% endblock %}

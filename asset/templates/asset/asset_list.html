@@ -14,7 +14,7 @@
     <tr>
         <td>{{ asset.name }}</td>
         <td>
-            <a href="{% url 'value:list' asset.pk %}">values</a>
+            <a href="{% url 'asset:value:list' asset.pk %}">values</a>
             <a href="{% url 'asset:update' asset.pk %}">update</a>
             <a href="{% url 'asset:delete' asset.pk %}">remove</a>
         </td>
