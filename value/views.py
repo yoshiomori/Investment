@@ -7,27 +7,20 @@ from value import forms
 from django import urls
 
 
-class ValueCreateView(auth_mixins.LoginRequiredMixin, generic.CreateView):
+class ValueCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.CreateView):
     model = models.Value
     fields = ['date', 'price']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        session_version_value_form = forms.SessionVersionValueForm(self.request.session, instance=form.instance)
-        if session_version_value_form.is_valid():
-            session_version_value_form.save(commit=False)
-        else:
-            raise RuntimeError('Formulário SessionVersionValueForm deve ser válido na sessão')
+        form.instance.asset_id = self.kwargs['asset_id']
         return super().form_valid(form)
-
-    def get_success_url(self):
-        self.success_url = urls.reverse_lazy('value:list', args=[self.request.session['asset']])
-        return super().get_success_url()
 
 
 class ValueListView(
     auth_mixins.LoginRequiredMixin,
     mixins.FilterAndOrderingListMixin,
+    mixins.SetSessionPreviousUrlMixin,
     generic.ListView
 ):
     model = models.Value

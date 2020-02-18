@@ -13,16 +13,13 @@ class AssetListView(auth_mixins.LoginRequiredMixin, mixins.SetSessionPreviousUrl
     ordering = 'pk'
 
 
-class AssetCreateView(auth_mixins.LoginRequiredMixin, generic.CreateView):
+class AssetCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.CreateView):
     model = models.Asset
     fields = ['name']
 
-    def get_success_url(self):
-        self.success_url = self.request.build_absolute_uri(urls.reverse('asset:update', args=[self.object.pk]))
-        return super().get_success_url()
-
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.asset_id = self.request.asset_id
         return super().form_valid(form)
 
 

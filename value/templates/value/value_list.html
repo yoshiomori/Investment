@@ -21,7 +21,7 @@
     <tr>
         <th>Date</th>
         <th>Price</th>
-        <th></th>
+        <th>{% if view.kwargs.asset_id %}<a href="{% url 'asset:value:create' view.kwargs.asset_id %}">Create</a>{% endif %}</th>
     </tr>
     </thead>
     <tbody>

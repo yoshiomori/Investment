@@ -8,5 +8,5 @@ class Value(models.Model):
     asset = models.ForeignKey('asset.Asset', on_delete=models.CASCADE)
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    def get_meta(self):
-        return self._meta
+    class Meta:
+        ordering = ('date',)
