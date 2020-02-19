@@ -11,8 +11,8 @@ class SessionVersionValueForm(models.ModelForm):
 
 
 class ValueFilterForm(mixins.CleanNoneFormMixin, forms.Form):
-    date__gte = fields.DateField(required=False)
-    date__lte = fields.DateField(required=False)
+    date__gte = fields.DateField(required=False, label='Initial Date')
+    date__lte = fields.DateField(required=False, label='Final Date')
 
     class Media:
         js = ('js/value_list.js',)

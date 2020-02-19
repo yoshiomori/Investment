@@ -61,6 +61,12 @@ $('input').each(
     }
 );
 
+$('select').each(
+    function() {
+        $(this).addClass('form-control');
+    }
+);
+
 $('tr:has(input)').addClass('form-group');
 $('.helptext').addClass('form-text text-muted');
 $('td:has(> .errorlist)').filter('td:has(> input)').each(function(){

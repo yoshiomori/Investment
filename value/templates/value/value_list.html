@@ -4,6 +4,17 @@
 {% block link %}
 {% endblock %}
 
+{% block header %}
+{% if view.kwargs.asset_id %}
+<nav>
+    <ol>
+        <li>Asset</li>
+        <li>Values</li>
+    </ol>
+</nav>
+{% endif %}
+{% endblock %}
+
 {% block main %}
 <form id="form">
     <table>
@@ -29,7 +40,8 @@
     <tr>
         <td>{{ value.date }}</td>
         <td>R$ {{ value.price|intcomma }}</td>
-        <td><a href="{% url 'value:update' value.pk %}">update</a> <a href="{% url 'value:delete' value.pk %}">delete</a></td>
+        <td><a href="{% url 'value:update' value.pk %}">update</a> <a
+                href="{% url 'value:delete' value.pk %}">delete</a></td>
     </tr>
     {% endfor %}
     </tbody>
@@ -74,6 +86,7 @@
 
         chart.draw(table, options);
     }
+
 </script>
 {{ filter_form.media }}
 {% endif %}
