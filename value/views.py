@@ -2,9 +2,7 @@ from django.contrib.auth import mixins as auth_mixins
 from django.views import generic
 
 import mixins
-from value import models
-from value import forms
-from django import urls
+from value import forms, models
 
 
 class ValueCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.CreateView):
