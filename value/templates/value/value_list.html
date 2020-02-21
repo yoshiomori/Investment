@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block header %}
-{% if view.kwargs.asset_id %}
+{% if asset_name %}
 <nav>
-    <ol>
-        <li>Asset</li>
-        <li>Values</li>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'asset:list' %}">Asset</a></li>
+        <li class="breadcrumb-item active">Values of {{ asset_name }}</li>
     </ol>
 </nav>
 {% endif %}
@@ -69,7 +69,9 @@
         ]);
 
         var options = {
-            title: '{{ asset }}',
+            {% if asset_name %}
+            title: '{{ asset_name }}',
+            {% endif %}
             legend: 'none',
             hAxis: {
                 title: 'Date',

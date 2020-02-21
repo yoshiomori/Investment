@@ -2,6 +2,7 @@ from django.contrib.auth import mixins as auth_mixins
 from django.views import generic
 
 import mixins
+from asset.models import Asset
 from value import forms, models
 
 
@@ -31,6 +32,12 @@ class ValueListView(
         queryset = super().get_queryset()
         queryset = queryset.filter(**self.kwargs)
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        if 'asset_id' in self.kwargs:
+            asset_name = Asset.objects.values_list('name', flat=True).get(pk=self.kwargs['asset_id'])
+            kwargs['asset_name'] = asset_name
+        return super().get_context_data(*args, **kwargs)
 
 
 class ValueUpdateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.UpdateView):
