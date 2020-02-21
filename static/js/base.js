@@ -1,4 +1,4 @@
-var menuBar = $('nav.menu-bar');
+var menuBar = $('body > header:nth-child(1) > nav:nth-child(1)');
 menuBar.addClass('navbar  navbar-expand-lg navbar-light bg-light');
 var menuBarA = menuBar.find('a:not(.dropdown-toggle)');
 menuBarA.addClass('nav-link');
@@ -82,3 +82,7 @@ $('td:has(> .errorlist)').filter('td:not(> input)').each(function(){
 $('button[type="submit"]').addClass('btn btn-primary pull-right');
 
 $('main').addClass('container');
+
+$('body > header:nth-child(1) > nav:nth-child(2) > ol:nth-child(1)').addClass('breadcrumb');
+$('.breadcrumb > li:nth-child(1)').addClass('breadcrumb-item');
+$('.breadcrumb > li:nth-child(2)').addClass('breadcrumb-item active');

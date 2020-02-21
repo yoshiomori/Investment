@@ -7,9 +7,9 @@
 {% block header %}
 {% if asset_name %}
 <nav>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'asset:list' %}">Asset</a></li>
-        <li class="breadcrumb-item active">Values of {{ asset_name }}</li>
+    <ol>
+        <li><a href="{% url 'asset:list' %}">Asset</a></li>
+        <li>Values of {{ asset_name }}</li>
     </ol>
 </nav>
 {% endif %}

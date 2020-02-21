@@ -1,4 +1,4 @@
-<nav class="menu-bar">
+<nav>
     {% for menu in menu_bar %}
     {% if menu.show_only_when is None or menu.get_show_only_when_display == 'Not Authenticated' and not user.is_authenticated or menu.get_show_only_when_display == 'Authenticated' and user.is_authenticated %}
     <a href="{{ menu.href }}" class="{{ menu.group }}">{{ menu.http_inner }}</a>
