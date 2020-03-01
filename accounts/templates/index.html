@@ -1,6 +1,35 @@
 {% extends 'base.html' %}
+{% load math %}
 {% block link %}
 {% endblock %}
 {% block main %}
+{% if row_list %}
+<div id="chart_div"></div>
+{% endif %}
+{% endblock %}
+{% block script %}
+{% if row_list %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            {% for row in row_list %}[{% if forloop.first %}{% for cell in row %}'{{ cell }}', {% endfor %}{% else %}{% for cell in row %}{% if forloop.first %}'{{ cell }}', {% else %}{v: {{ cell }}, f: '{{ cell|percent }}'}, {% endif %}{% endfor %}{% endif %}],
+            {% endfor %}
+        ]);
+
+        var options = {
+            title: 'Relative Variation',
+            hAxis: { title: 'Year/Month', titleTextStyle: { color: '#333' } },
+            vAxis: { minValue: 0, format:'percent' },
+            legend:'top'
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+{% endif %}
 {% endblock %}
