@@ -19,7 +19,6 @@ class AssetCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousU
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.asset_id = self.request.asset_id
         return super().form_valid(form)
 
 

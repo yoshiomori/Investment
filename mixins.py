@@ -26,7 +26,7 @@ class KwargsUpdateSessionMixin(object):
 
 class SuccessUrlPreviousUrlMixin(object):
     def get_success_url(self):
-        self.success_url = self.request.session[PREVIOUS_URL]
+        self.success_url = self.request.session.get(PREVIOUS_URL, self.request.get_full_path())
         return super().get_success_url()
 
 
