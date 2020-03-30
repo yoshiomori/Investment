@@ -9,19 +9,20 @@ class IndexView(generic.TemplateView):
         user = self.request.user
         if user.is_authenticated:
             value_dict = user.value_set.aggregate(Min('date'), Max('date'))
-            date = value_dict['date__min']
+            date__min = value_dict['date__min']
             date__max = value_dict['date__max']
-            if date and date__max:
-                year = date.year
-                month = date.month
+            if date__min and date__max:
                 max_year = date__max.year
                 max_month = date__max.month
+                window_month = max_month - 6
+                min_year = date__min.year if window_month > 0 else (date__min.year - 1)
+                min_month = window_month if window_month > 0 else (window_month + 12)
                 asset_queryset = user.asset_set.all()
                 row_list = [['Year/Month'] + list(asset_queryset.values_list('name', flat=True))]
-                while (month <= max_month or year < max_year) and (year != max_year or month <= max_month):
-                    row = [f'{year}/{month}']
+                while min_year < max_year or min_year == max_year and min_month <= max_month:
+                    row = [f'{min_year}/{min_month}']
                     for asset in asset_queryset:
-                        value = asset.value_set.filter(date__year=year, date__month=month).first()
+                        value = asset.value_set.filter(date__year=min_year, date__month=min_month).first()
                         if value is None:
                             row.append(0)
                         else:
@@ -31,10 +32,10 @@ class IndexView(generic.TemplateView):
                             else:
                                 row.append(0)
                     row_list.append(row)
-                    if month < 12:
-                        month += 1
+                    if min_month < 12:
+                        min_month += 1
                     else:
-                        month = 1
-                        year += 1
+                        min_month = 1
+                        min_year += 1
                 kwargs.update(dict(row_list=row_list))
         return super().get_context_data(**kwargs)
