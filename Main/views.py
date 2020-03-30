@@ -20,20 +20,17 @@ class IndexView(generic.TemplateView):
                 row_list = [['Year/Month'] + list(asset_queryset.values_list('name', flat=True))]
                 while (month <= max_month or year < max_year) and (year != max_year or month <= max_month):
                     row = [f'{year}/{month}']
-                    append = True
                     for asset in asset_queryset:
                         value = asset.value_set.filter(date__year=year, date__month=month).first()
                         if value is None:
-                            append = False
-                            break
+                            row.append(0)
                         else:
                             initial_price = (value.price - value.delta)
                             if initial_price:
                                 row.append(value.delta / initial_price)
                             else:
                                 row.append(0)
-                    if append:
-                        row_list.append(row)
+                    row_list.append(row)
                     if month < 12:
                         month += 1
                     else:
