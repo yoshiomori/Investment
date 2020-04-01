@@ -15,6 +15,12 @@ class ValueCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousU
         form.instance.asset_id = self.kwargs['asset_id']
         return super().form_valid(form)
 
+    def get_context_data(self, *args, **kwargs):
+        if 'asset_id' in self.kwargs:
+            asset_name = Asset.objects.values_list('name', flat=True).get(pk=self.kwargs['asset_id'])
+            kwargs['asset_name'] = asset_name
+        return super().get_context_data(*args, **kwargs)
+
 
 class ValueListView(
     auth_mixins.LoginRequiredMixin,

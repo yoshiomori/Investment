@@ -85,5 +85,5 @@ $('button[type="submit"]').addClass('btn btn-primary pull-right');
 $('main').addClass('container');
 
 $('body > header:nth-child(1) > nav:nth-child(2) > ol:nth-child(1)').addClass('breadcrumb');
-$('.breadcrumb > li:nth-child(1)').addClass('breadcrumb-item');
-$('.breadcrumb > li:nth-child(2)').addClass('breadcrumb-item active');
+$('.breadcrumb > li').addClass('breadcrumb-item');
+$('.breadcrumb > li:last-child').addClass('active');
