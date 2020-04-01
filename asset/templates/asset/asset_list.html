@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block link %}
+<link rel="stylesheet" href="{% static 'css/asset_list.css' %}">
 {% endblock %}
 {% block main %}
 <table class="table">
     <thead>
     <tr>
-        <th>Nome</th>
+        <th>Name</th>
+        <th>Hide</th>
         <th><a href="{% url 'asset:create' %}">create</a></th>
     </tr>
     </thead>
@@ -13,6 +16,7 @@
     {% for asset in asset_list %}
     <tr>
         <td>{{ asset.name }}</td>
+        <td>{{ asset.hide }}</td>
         <td>
             <a href="{% url 'asset:value:list' asset.pk %}">values</a>
             <a href="{% url 'asset:update' asset.pk %}">update</a>
@@ -23,4 +27,7 @@
     </tbody>
 </table>
 {% include 'pagination.html' %}
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/asset_list.js' %}"></script>
 {% endblock %}

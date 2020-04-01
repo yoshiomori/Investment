@@ -24,7 +24,7 @@ class AssetCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousU
 
 class AssetUpdateView(auth_mixins.LoginRequiredMixin, generic.UpdateView):
     model = models.Asset
-    fields = ['name']
+    fields = ['name', 'hide']
 
     def get_success_url(self):
         assert isinstance(self.request, http.HttpRequest)

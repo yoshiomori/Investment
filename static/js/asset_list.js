@@ -1,0 +1,1 @@
+$('.table > tbody:nth-child(2) > tr:has(td:contains(False))').addClass('text-muted');
