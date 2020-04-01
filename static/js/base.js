@@ -79,6 +79,7 @@ $('td:has(> .errorlist)').filter('td:has(> input)').each(function(){
 $('td:has(> .errorlist)').filter('td:not(> input)').each(function(){
     $(this).addClass('text-danger');
 });
+$('td.invalid-feedback').removeClass('invalid-feedback');
 $('button[type="submit"]').addClass('btn btn-primary pull-right');
 
 $('main').addClass('container');

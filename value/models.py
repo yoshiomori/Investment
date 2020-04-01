@@ -13,7 +13,10 @@ class Value(models.Model):
         ordering = ('date',)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        last = self.asset.value_set.values_list('price', flat=True).last()
+        if self.pk is None:
+            last = self.asset.value_set.values_list('price', flat=True).last()
+        else:
+            last = self.asset.value_set.exclude(pk=self.pk).values_list('price', flat=True).last()
         if last is None:
             last = 0
         self.delta = self.price - last
