@@ -15,7 +15,7 @@ class IndexView(generic.TemplateView):
                 max_year = date__max.year
                 max_month = date__max.month
                 window_month = max_month - 6
-                min_year = date__min.year if window_month > 0 else (date__min.year - 1)
+                min_year = max_year if window_month > 0 else (max_year - 1)
                 min_month = window_month if window_month > 0 else (window_month + 12)
                 asset_queryset = user.asset_set.filter(hide=False)
                 row_list = [['Year/Month'] + list(asset_queryset.values_list('name', flat=True))]
