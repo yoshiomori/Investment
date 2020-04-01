@@ -1,1 +1,1 @@
-$('.table > tbody:nth-child(2) > tr:has(td:contains(False))').addClass('text-muted');
+$('.table > tbody:nth-child(2) > tr:has(td:contains(True))').addClass('text-muted');
