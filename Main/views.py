@@ -14,7 +14,7 @@ class IndexView(generic.TemplateView):
             if date__min and date__max:
                 max_year = date__max.year
                 max_month = date__max.month
-                window_month = max_month - 6
+                window_month = max_month - 3
                 min_year = max_year if window_month > 0 else (max_year - 1)
                 min_month = window_month if window_month > 0 else (window_month + 12)
                 asset_queryset = user.asset_set.filter(hide=False)
@@ -24,13 +24,13 @@ class IndexView(generic.TemplateView):
                     for asset in asset_queryset:
                         value = asset.value_set.filter(date__year=min_year, date__month=min_month).first()
                         if value is None:
-                            row.append(0)
+                            row.append('null')
                         else:
                             initial_price = (value.price - value.delta)
                             if initial_price:
                                 row.append(value.delta / initial_price)
                             else:
-                                row.append(0)
+                                row.append('null')
                     row_list.append(row)
                     if min_month < 12:
                         min_month += 1

@@ -24,7 +24,8 @@
             title: 'Relative Variation',
             hAxis: { title: 'Year/Month', titleTextStyle: { color: '#333' } },
             vAxis: { minValue: 0, format:'percent' },
-            legend:'top'
+            legend:'top',
+            height: window.innerHeight - 57,
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
