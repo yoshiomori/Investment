@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth import mixins as auth_mixins
 from django.views import generic
 
@@ -20,6 +22,10 @@ class ValueCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousU
             asset_name = Asset.objects.values_list('name', flat=True).get(pk=self.kwargs['asset_id'])
             kwargs['asset_name'] = asset_name
         return super().get_context_data(*args, **kwargs)
+
+    def get_initial(self):
+        date = datetime.date.today()
+        return {'date': datetime.date(date.year, date.month, 1)}
 
 
 class ValueListView(
