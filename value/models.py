@@ -17,7 +17,7 @@ class Value(models.Model):
         if self.pk is None:
             last = self.asset.value_set.values_list('price', flat=True).last()
         else:
-            last = self.asset.value_set.exclude(pk=self.pk).values_list('price', flat=True).last()
+            last = self.asset.value_set.filter(pk__lt=self.pk).values_list('price', flat=True).last()
         if last is None:
             last = 0
         self.delta = self.price - last - self.transaction
