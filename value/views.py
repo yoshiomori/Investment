@@ -10,7 +10,7 @@ from value import forms, models
 
 class ValueCreateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.CreateView):
     model = models.Value
-    fields = ['date', 'price']
+    fields = ['date', 'price', 'transaction']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -54,7 +54,7 @@ class ValueListView(
 
 class ValueUpdateView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.UpdateView):
     model = models.Value
-    fields = ['date', 'price']
+    fields = ['date', 'price', 'transaction']
 
 
 class ValueDeleteView(auth_mixins.LoginRequiredMixin, mixins.SuccessUrlPreviousUrlMixin, generic.DeleteView):

@@ -8,6 +8,7 @@ class Value(models.Model):
     asset = models.ForeignKey('asset.Asset', on_delete=models.CASCADE)
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     delta = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         ordering = ('date',)
@@ -19,5 +20,5 @@ class Value(models.Model):
             last = self.asset.value_set.exclude(pk=self.pk).values_list('price', flat=True).last()
         if last is None:
             last = 0
-        self.delta = self.price - last
+        self.delta = self.price - last - self.transaction
         super().save(force_insert, force_update, using, update_fields)
