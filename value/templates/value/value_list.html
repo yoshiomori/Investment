@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load value %}
 
 {% block link %}
 {% endblock %}
@@ -65,9 +66,15 @@
         table.addColumn('date', 'Date');
         table.addColumn('number', 'Price');
         table.addRows([
+            {% if asset_name %}
             {% for value in value_list %}
             [new Date('{{ value.date|date:'Y/m/d' }}'), {{ value.price }}],
             {% endfor %}
+            {% else %}
+            {% for value in value_list|sum_group_by_date_value_filter %}
+            [new Date('{{ value.date|date:'Y/m/d' }}'), {{ value.price }}],
+            {% endfor %}
+            {% endif %}
         ]);
 
         var options = {
@@ -94,9 +101,15 @@
         table.addColumn('date', 'Date');
         table.addColumn('number', 'Price');
         table.addRows([
+            {% if asset_name %}
             {% for value in value_list %}
             [new Date('{{ value.date|date:'Y/m/d' }}'), {{ value.delta }}],
             {% endfor %}
+            {% else %}
+            {% for value in value_list|sum_group_by_date_value_filter %}
+            [new Date('{{ value.date|date:'Y/m/d' }}'), {{ value.delta }}],
+            {% endfor %}
+            {% endif %}
         ]);
 
         var options = {
