@@ -24,7 +24,8 @@
 <button form="form" type="submit">Search</button>
 
 {% if value_list %}
-<div id="chart_div"></div>
+<div id="price_chart_div"></div>
+<div id="delta_chart_div"></div>
 {% endif %}
 
 <table class="table">
@@ -56,11 +57,10 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart'], 'language': 'pt'});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawPriceChart);
+    google.charts.setOnLoadCallback(drawDeltaChart);
 
-
-
-    function drawChart() {
+    function drawPriceChart() {
         var table = new google.visualization.DataTable();
         table.addColumn('date', 'Date');
         table.addColumn('number', 'Price');
@@ -71,9 +71,7 @@
         ]);
 
         var options = {
-            {% if asset_name %}
-            title: '{{ asset_name }}',
-            {% endif %}
+            title: 'Price',
             legend: 'none',
             hAxis: {
                 title: 'Date',
@@ -86,11 +84,39 @@
             displayAnnotations: true
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('price_chart_div'));
 
         chart.draw(table, options);
     }
 
+    function drawDeltaChart() {
+        var table = new google.visualization.DataTable();
+        table.addColumn('date', 'Date');
+        table.addColumn('number', 'Price');
+        table.addRows([
+            {% for value in value_list %}
+            [new Date('{{ value.date|date:'Y/m/d' }}'), {{ value.delta }}],
+            {% endfor %}
+        ]);
+
+        var options = {
+            title: 'Delta',
+            legend: 'none',
+            hAxis: {
+                title: 'Date',
+                format: 'd/M/yy'
+            },
+            vAxis: {
+                title: 'Value',
+                format:'currency'
+            },
+            displayAnnotations: true
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('delta_chart_div'));
+
+        chart.draw(table, options);
+    }
 </script>
 {{ filter_form.media }}
 {% endif %}
