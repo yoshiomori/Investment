@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load asset %}
 {% block link %}
 <link rel="stylesheet" href="{% static 'css/asset_list.css' %}">
 {% endblock %}
 {% block main %}
+<div id="chart_div"></div>
 <table class="table">
     <thead>
     <tr>
@@ -30,4 +32,35 @@
 {% endblock %}
 {% block script %}
 <script src="{% static 'js/asset_list.js' %}"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+          var data = google.visualization.arrayToDataTable([
+            ['Asset', 'Variation',],
+            {% for asset in asset_list|sum_delta %}['{{ asset.name }}', {{ asset.sum }}],
+            {% endfor %}
+          ]);
+
+          var options = {
+            title: 'Asset Variation',
+            chartArea: {width: '50%'},
+             legend: { position: 'none' },
+            hAxis: {
+                title: 'Variation'
+            },
+            vAxis: {
+              title: 'Asset'
+            }
+
+          };
+
+          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+          chart.draw(data, options);
+        }
+</script>
 {% endblock %}
