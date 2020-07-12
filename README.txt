@@ -2,7 +2,7 @@ apt-get update
 apt-get -u upgrade
 apt-get install python3-dev
 update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
+update-alternatives --install /usr/bin/python python /usr/bin/python3.7 2
 wget https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 
