@@ -1,3 +1,4 @@
+# Debian (Buster)
 apt-get update
 apt-get -u upgrade
 apt-get install python3-dev
@@ -15,9 +16,12 @@ dpkg -i mysql-common_8.0.19-1debian10_amd64.deb
 dpkg -i mysql-community-client-core_8.0.19-1debian10_amd64.deb
 dpkg -i mysql-community-client_8.0.19-1debian10_amd64.deb
 dpkg -i mysql-client_8.0.19-1debian10_amd64.deb
+apt-get install libmecab2
 dpkg -i mysql-community-server-core_8.0.19-1debian10_amd64.deb
 apt-get -f install
 dpkg -i mysql-community-server-core_8.0.19-1debian10_amd64.deb
+apt-get install perl
+apt-get install psmisc
 dpkg -i mysql-community-server_8.0.19-1debian10_amd64.deb
 apt-get -f install
 dpkg -i mysql-community-server_8.0.19-1debian10_amd64.deb
