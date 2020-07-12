@@ -16,6 +16,7 @@ dpkg -i mysql-common_8.0.19-1debian10_amd64.deb
 dpkg -i mysql-community-client-core_8.0.19-1debian10_amd64.deb
 dpkg -i mysql-community-client_8.0.19-1debian10_amd64.deb
 dpkg -i mysql-client_8.0.19-1debian10_amd64.deb
+apt-get install libmecab2
 dpkg -i mysql-community-server-core_8.0.19-1debian10_amd64.deb
 apt-get -f install
 dpkg -i mysql-community-server-core_8.0.19-1debian10_amd64.deb
