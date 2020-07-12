@@ -20,6 +20,8 @@ apt-get install libmecab2
 dpkg -i mysql-community-server-core_8.0.19-1debian10_amd64.deb
 apt-get -f install
 dpkg -i mysql-community-server-core_8.0.19-1debian10_amd64.deb
+apt-get install perl
+apt-get install psmisc
 dpkg -i mysql-community-server_8.0.19-1debian10_amd64.deb
 apt-get -f install
 dpkg -i mysql-community-server_8.0.19-1debian10_amd64.deb
