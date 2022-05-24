@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+    django:
+        build: .
+        container_name: django
+        command: bash -c "python manage.py migrate && python manage.py loaddata menu-bar && python manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - .:/usr/src/app/
+        ports:
+            - "8000:8000"
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+            - SECRET_KEY=qfgm(zyln_2b0iu6q9ie$l(ge(n9zy8!#b_fa4wc%yyit%29qj
+            - DEBUG=True
+        depends_on:
+            - mysql
+    mysql:
+        image: mysql
+        container_name: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=K31AZO9WS2
+            - MYSQL_DATABASE=investment
+            - MYSQL_USER=Investment
+            - MYSQL_PASSWORD=K31AZO9WS2

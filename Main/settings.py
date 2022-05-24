@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'investment',
         'USER': 'Investment',
         'PASSWORD': 'K31AZO9WS2',
-        'HOST': 'localhost'
+        'HOST': 'mysql'
     }
 }
 
